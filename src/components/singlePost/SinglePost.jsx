@@ -1,5 +1,5 @@
 import "./singlePost.css"
-import snowImg from "../images/snow.avif"
+import snowImg from "../../images/snow.avif"
 
 const SinglePost = () => {
     return (

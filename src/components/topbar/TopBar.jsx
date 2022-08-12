@@ -1,5 +1,5 @@
 import "./topbar.css"
-import profilePic from "../images/pp5.jpg"
+import profilePic from "../../images/pp5.jpg"
 
 const TopBar = () => {
   return (

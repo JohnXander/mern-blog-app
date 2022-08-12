@@ -1,5 +1,5 @@
 import "./header.css"
-import viewImg from "../images/view.avif"
+import viewImg from "../../images/view.avif"
 
 const Header = () => {
     return (

@@ -1,5 +1,5 @@
 import "./write.css"
-import snowImg from "../../components/images/snow.avif"
+import snowImg from "../../images/snow.avif"
 
 const Write = () => {
     return (
