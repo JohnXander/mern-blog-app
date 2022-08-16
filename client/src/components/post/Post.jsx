@@ -1,39 +1,31 @@
 import "./post.css"
-import snowImg from "../../images/snow.avif"
+import { Link } from "react-router-dom"
 
-const Post = () => {
+const Post = ({ post }) => {
     return (
         <div className="post">
-            <img
-                className="post-img"
-                src={snowImg}
-                alt="Snow"
-            />
+            {post.photo && (
+                <img
+                    className="post-img"
+                    src={post.photo}
+                    alt="Snow"
+                />
+            )}
             <div className="post-info">
                 <div className="post-cats">
-                    <span className="post-cat">Music</span>
-                    <span className="post-cat">Life</span>
+                    {post.categories.map(c => {
+                        <span className="post-cat">{c.name}</span>
+                    })}
                 </div>
-                <span className="post-title">
-                    Lorem ipsum dolor sit amet.
-                </span>
+                <Link to={`/post/${post._id}`} className="link">
+                    <span className="post-title">{post.title}</span>
+                </Link>
                 <hr />
-                <span className="post-date">1 hour ago</span>
+                <span className="post-date">
+                    {new Date(post.createdAt).toDateString()}
+                </span>
             </div>
-            <p className="post-desc">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Quidem molestias amet ut obcaecati repudiandae, magnam
-                hic architecto ratione sint accusamus aperiam soluta
-                enim. Odio repudiandae modi labore eligendi animi nam?
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Quidem molestias amet ut obcaecati repudiandae, magnam
-                hic architecto ratione sint accusamus aperiam soluta
-                enim. Odio repudiandae modi labore eligendi animi nam?
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Quidem molestias amet ut obcaecati repudiandae, magnam
-                hic architecto ratione sint accusamus aperiam soluta
-                enim. Odio repudiandae modi labore eligendi animi nam?
-            </p>
+            <p className="post-desc">{post.desc}</p>
         </div>
     )
 }
