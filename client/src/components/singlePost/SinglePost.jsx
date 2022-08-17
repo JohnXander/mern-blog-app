@@ -7,6 +7,7 @@ const SinglePost = () => {
     const location = useLocation()
     const path = location.pathname.split("/")[2]
     const [post, setPost] = useState({})
+    const PF = "http://localhost:5000/images/"
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -21,7 +22,7 @@ const SinglePost = () => {
             <div className="single-post-wrapper">
                 {post.photo && (
                     <img
-                    src={post.photo}
+                    src={PF + post.photo}
                     alt=""
                     className="single-post-img"
                 />
