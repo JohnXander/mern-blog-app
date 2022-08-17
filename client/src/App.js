@@ -13,8 +13,11 @@ import {
   Link
 } from "react-router-dom"
 
+import { useContext } from "react";
+import { Context } from "./context/Context";
+
 const App = () => {
-  const user = false
+  const { user } = useContext(Context)
   return (
     <Router>
       <TopBar />

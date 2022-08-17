@@ -1,9 +1,14 @@
 import "./topbar.css"
 import profilePic from "../../images/pp5.jpg"
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { Context } from "../../context/Context"
 
 const TopBar = () => {
-    const user = false
+    const { user, dispatch } = useContext(Context)
+
+    const handleLogout = () => dispatch({ type: "LOGOUT"})
+
     return (
         <div className="top">
             <div className="topLeft">
@@ -26,14 +31,19 @@ const TopBar = () => {
                     <li className="topListItem">
                         <Link to="/write" className="link">WRITE</Link>
                     </li>
-                    <li className="topListItem">{user && "LOG OUT"}</li>
+                    <li
+                        className="topListItem"
+                        onClick={handleLogout}
+                    >
+                        {user && "LOG OUT"}
+                    </li>
                 </ul>
             </div>
             <div className="topRight">
                 {user ? (
                     <img
                     className="topImg"
-                    src={profilePic}
+                    src={user.profilePic}
                     alt="Profile Pic"
                 />
                 ) : (
