@@ -10,11 +10,16 @@ const SinglePost = () => {
     const [post, setPost] = useState({})
     const PF = "http://localhost:5000/images/"
     const { user } = useContext(Context)
+    const [title, setTitle] = useState("")
+    const [desc, setDesc] = useState("")
+    const [updateMode, setUpdateMode] = useState(false)
 
     useEffect(() => {
         const fetchPost = async () => {
             const res = await axios.get(`/posts/${path}`)
             setPost(res.data)
+            setTitle(res.data.title)
+            setDesc(res.data.desc)
         }
         fetchPost()
     }, [path])
@@ -28,28 +33,51 @@ const SinglePost = () => {
         } catch (err) {}
     }
 
+    const handleUpdate = async () => {
+        try {
+            await axios.put(`/posts/${post._id}`, {
+                username: user.username,
+                title,
+                desc
+            })
+            setUpdateMode(false)
+        } catch (err) {}
+    }
+
     return (
         <div className="single-post">
             <div className="single-post-wrapper">
                 {post.photo && (
                     <img
-                    src={PF + post.photo}
-                    alt=""
-                    className="single-post-img"
+                        src={PF + post.photo}
+                        alt=""
+                        className="single-post-img"
                 />
                 )}
-                <h1 className="single-post-title">
-                    {post.title}
-                    {post.username === user?.username && (
-                        <div className="single-post-edit">
-                            <i className="single-post-icon fa-solid fa-pen-to-square"></i>
-                            <i
-                                className="single-post-icon fa-solid fa-trash-can"
-                                onClick={handleDelete}
-                            ></i>
-                        </div>
-                    )}
-                </h1>
+                {updateMode ?
+                    (<input
+                        type="text"
+                        value={title}
+                        className="single-post-title-input"
+                        autoFocus
+                        onChange={(e) => setTitle(e.target.value)}
+                        />) : 
+                    (<h1 className="single-post-title">
+                        {title}
+                        {post.username === user?.username && (
+                            <div className="single-post-edit">
+                                <i
+                                    className="single-post-icon fa-solid fa-pen-to-square"
+                                    onClick={() => setUpdateMode(true)}
+                                    ></i>
+                                <i
+                                    className="single-post-icon fa-solid fa-trash-can"
+                                    onClick={handleDelete}
+                                    ></i>
+                            </div>
+                        )}
+                    </h1>)
+                }
                 <div className="single-post-info">
                     <span className="single-post-author">
                         Author:
@@ -61,7 +89,21 @@ const SinglePost = () => {
                         {new Date(post.createdAt).toDateString()}
                     </span>
                 </div>
-                <p className="single-post-desc">{post.desc}</p>
+                {updateMode ?
+                    (<textarea
+                        className="single-post-desc-input"
+                        value={desc}
+                        onChange={(e) => setDesc(e.target.value)}
+                    />) : 
+                    (<p className="single-post-desc">{desc}</p>)
+                }
+                {updateMode && (
+                    <button
+                        className="single-post-btn" onClick={handleUpdate}
+                    >
+                        Update
+                    </button>
+                )}
             </div>
         </div>
     )
