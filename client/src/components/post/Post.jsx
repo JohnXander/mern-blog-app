@@ -9,7 +9,7 @@ const Post = ({ post }) => {
                 <img
                     className="post-img"
                     src={PF + post.photo}
-                    alt="Snow"
+                    alt="Post Photo"
                 />
             )}
             <div className="post-info">
