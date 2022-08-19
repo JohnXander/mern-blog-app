@@ -1,9 +1,9 @@
-import axios from "axios"
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import Header from "../../components/header/Header"
 import Posts from "../../components/posts/Posts"
 import SideBar from "../../components/sidebar/SideBar"
+import { axiosInstance } from "../../config"
 import "./home.css"
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await axios.get(`/posts/${search}`)
+            const res = await axiosInstance.get(`/posts/${search}`)
             setPosts(res.data)
         }
         fetchPosts()
